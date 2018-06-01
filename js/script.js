@@ -35,11 +35,15 @@ function choseVerse(){
     verss = bible[book].chapters[chapter].length;
     verseStart = newRand(verss - length);
     verseEnd = verseStart + length;
+     
+    var tmp = chapter + 1;
+    var tmpv = verseStart + 1;
 
-    ref = bible[book].name + " " + chapter + ":" + verseStart + "-" + verseEnd;
+    ref = bible[book].name + " " + tmp + ":" + tmpv +"-" + verseEnd;
 
     for(i = verseStart; i < verseEnd; i ++){
-        verse += '<sup>' + i + '</sup>';
+        var tmpp = i + 1;
+        verse += '<sup>' + tmpp + '</sup>';
         verse += '<p class="verse">' + bible[book].chapters[chapter][i] + '</p>'
     }
     //console.log(verse);
