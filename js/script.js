@@ -59,7 +59,7 @@ function choseVerse(){
 }
 
 function newRand(n){
-    return Math.floor(Math.random() * n + 1);
+    return Math.floor(Math.random() * n) + 1;
 }
 
 function length(obj) {
