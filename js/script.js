@@ -39,13 +39,21 @@ function choseVerse(){
     var tmp = chapter + 1;
     var tmpv = verseStart + 1;
 
-    ref = bible[book].name + " " + tmp + ":" + tmpv +"-" + verseEnd;
-
-    for(i = verseStart; i < verseEnd; i ++){
-        var tmpp = i + 1;
-        verse += '<sup>' + tmpp + '</sup>';
-        verse += '<p class="verse">' + bible[book].chapters[chapter][i] + '</p>'
+    if(length > 1){
+        ref = bible[book].name + " " + tmp + ":" + tmpv +"-" + verseEnd;
+        for(i = verseStart; i < verseEnd; i ++){
+            var tmpp = i + 1;
+            verse += '<sup>' + tmpp + '</sup>';
+            verse += '<p class="verse">' + bible[book].chapters[chapter][i] + '</p>'
+        } 
+    }else{
+        ref = bible[book].name + " " + tmp + ":" + tmpv;
+        verse += '<sup>' + tmp + '</sup>';
+            verse += '<p class="verse">' + bible[book].chapters[chapter][verseStart] + '</p>'
+        
     }
+
+    
     //console.log(verse);
     document.getElementById("ref").innerHTML = ref;
     document.getElementById("verses").innerHTML = verse;
