@@ -14,14 +14,6 @@
   <nav class="white" role="navigation">
     <div class="nav-wrapper container">
       <a id="logo-container" href="#" class="brand-logo">WhatVerse?</a>
-      <ul class="right hide-on-med-and-down">
-        <li><a href="#">Navbar Link</a></li>
-      </ul>
-
-      <ul id="nav-mobile" class="sidenav">
-        <li><a href="#">Navbar Link</a></li>
-      </ul>
-      <a href="#" data-target="nav-mobile" class="sidenav-trigger"><i class="material-icons">menu</i></a>
     </div>
   </nav>
 
@@ -34,7 +26,7 @@
           <h5 class="header col s12 light">Click The button to get a verse!</h5>
         </div>
         <div class="row center">
-          <a onclick="verseBtnPress" id="verseBtn" class="btn-large waves-effect waves-light teal lighten-1">Get a Verse</a>
+          <a onclick="verseBtnPress()" id="verseBtn" class="btn-large waves-effect waves-light teal lighten-1">Get a Verse</a>
         </div>
         <br><br>
 
@@ -48,16 +40,29 @@
     <div class="section">
 
       <!--   Icon Section   -->
-      <div class="row">
-        <div class="col s12 m12">
-          <div class="card grey darken-1">
-            <div class="card-content white-text">
-              <span class="card-title">Your Verse</span>
-              <p id="verse">In the beginning God created the heavens and the earth.</p>
-            </div>
-            <div class="card-action">
-              <a href="#" class="white-text">Copy</a>
-              <a href="#" class="white-text">Read More</a>
+      <div id="verseCard">
+        <div class="row">
+          <div class="col s12 m12">
+            <div class="card grey darken-1">
+              <div class="card-content white-text">
+                <span class="card-title">Your Verse</span>
+                <div id="pas">
+                  <h5 id="ref">Gen 1:1</h5>
+                </div>
+                <div id="verses">
+                    <sup class="verseNum">1</sup>
+                    <p class="verse">In the beginning God created the heavens and the earth.</p>
+                    <sup class="verseNum">2</sup>
+                    <p class="verse">In the beginning God created the heavens and the earth.</p>
+
+                    
+                </div>
+                
+              </div>
+              <div class="card-action">
+                <a href="#" class="white-text" onclick="copyClick()">Copy</a>
+                <a href="#" class="white-text">Read More</a>
+              </div>
             </div>
           </div>
         </div>
@@ -73,34 +78,16 @@
     <div class="container">
       <div class="row">
         <div class="col l6 s12">
-          <h5 class="white-text">Company Bio</h5>
-          <p class="grey-text text-lighten-4">We are a team of college students working on this project like it's our full time job. Any amount would help support and continue development on this project and is greatly appreciated.</p>
+          <h5 class="white-text">What is this website?</h5>
+          <p class="grey-text text-lighten-4">I've created this website to randomly select a passage, up to 5 verses long, from the bible. For the time being the only version available is KJV, but i plan on making more versions available.</p>
 
 
-        </div>
-        <div class="col l3 s12">
-          <h5 class="white-text">Settings</h5>
-          <ul>
-            <li><a class="white-text" href="#!">Link 1</a></li>
-            <li><a class="white-text" href="#!">Link 2</a></li>
-            <li><a class="white-text" href="#!">Link 3</a></li>
-            <li><a class="white-text" href="#!">Link 4</a></li>
-          </ul>
-        </div>
-        <div class="col l3 s12">
-          <h5 class="white-text">Connect</h5>
-          <ul>
-            <li><a class="white-text" href="#!">Link 1</a></li>
-            <li><a class="white-text" href="#!">Link 2</a></li>
-            <li><a class="white-text" href="#!">Link 3</a></li>
-            <li><a class="white-text" href="#!">Link 4</a></li>
-          </ul>
         </div>
       </div>
     </div>
     <div class="footer-copyright">
       <div class="container">
-      Made by <a class="brown-text text-lighten-3" href="http://materializecss.com">Materialize</a>
+      Made by Tristan Frederick
       </div>
     </div>
   </footer>
