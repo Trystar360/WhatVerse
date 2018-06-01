@@ -7,7 +7,7 @@ xhttp.onreadystatechange = function() {
     if (this.readyState == 4 && this.status == 200) {
        bible = JSON.parse(xhttp.responseText)
        console.log(bible);
-       console.log(bible.length);
+       //console.log(bible.length);
        //console.log(bible[0].chapters[0][0]);
        
     }
@@ -29,9 +29,9 @@ function choseVerse(){
     maxLength = 5;
     length = newRand(maxLength);
     books = bible.length;
-    book = newRand(books);
+    book = newRand(books) - 1;
     chapters = bible[book].chapters.length;
-    chapter = newRand(chapters);
+    chapter = newRand(chapters) - 1;
     verss = bible[book].chapters[chapter].length;
     verseStart = newRand(verss - length);
     verseEnd = verseStart + length;
@@ -42,7 +42,7 @@ function choseVerse(){
         verse += '<sup>' + i + '</sup>';
         verse += '<p class="verse">' + bible[book].chapters[chapter][i] + '</p>'
     }
-    console.log(verse);
+    //console.log(verse);
     document.getElementById("ref").innerHTML = ref;
     document.getElementById("verses").innerHTML = verse;
     // console.log("length: ")
@@ -55,7 +55,8 @@ function choseVerse(){
     // console.log(verseStart);
     // console.log("-" );
     // console.log(verseEnd);
-
+    
+    // console.log(length);
 }
 
 function newRand(n){
@@ -78,3 +79,9 @@ function copy(s){
 function copyClick(){
     copy("verses");
 }
+function testVerse(){
+    for(var i = 0; i < 1000; i ++){
+        choseVerse();
+    }
+}
+
