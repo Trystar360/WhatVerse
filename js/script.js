@@ -1,30 +1,60 @@
 var bible;
 var verse;
 
+var version = 0;
+//0 = KJV; 1 = ESV; 
 
-var xhttp = new XMLHttpRequest();
-xhttp.onreadystatechange = function() {
+
+
+
+
+function choseVerse(n){
+    var xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange = function() {
     if (this.readyState == 4 && this.status == 200) {
        bible = JSON.parse(xhttp.responseText)
        console.log(bible);
-       //console.log(bible.length);
-       //console.log(bible[0].chapters[0][0]);
        
     }
 };
-xhttp.open("GET", "../bible.json", true);
-xhttp.send();
+    xhttp.open("GET",n, true);
+    xhttp.send();  
+}
 
+function newRand(n){
+    return Math.floor(Math.random() * n) + 1;
+}
 
-function choseVerse(){
-    verse = '';
+function length(obj) {
+    return Object.keys(obj).length;
+}
 
+function verseBtnPress(){
+    switch(version){
+        case 0: choseVerse("bible.json"), kjv();
+        case 1: choseVerse("https://raw.githubusercontent.com/honza/bibles/master/ESV/ESV.json");
+    }
+    
+    
+}
+
+function testVerse(){
+    for(var i = 0; i < 1000; i ++){
+        choseVerse();
+    }
+}
+
+function kjv(){
     var ref;
     var length, maxLength; 
     var book, books;
     var chapter,chapters;
     var verseStart;
     var verseEnd, verss;
+    verse = '';
+
+    document.getElementById("ref").innerHTML = ref;
+    document.getElementById("verses").innerHTML = verse;
 
     maxLength = 5;
     length = newRand(maxLength);
@@ -50,50 +80,12 @@ function choseVerse(){
         ref = bible[book].name + " " + tmp + ":" + tmpv;
         verse += '<sup>' + tmp + '</sup>';
             verse += '<p class="verse">' + bible[book].chapters[chapter][verseStart] + '</p>'
+            
+            document.getElementById("verseCard").style.display = "block";
         
-    }
 
-    
-    //console.log(verse);
-    document.getElementById("ref").innerHTML = ref;
-    document.getElementById("verses").innerHTML = verse;
-    // console.log("length: ")
-    // console.log(length);
-    // console.log("book: ");
-    // console.log(book);
-    // console.log("chapter: ");
-    // console.log(chapter);
-    // console.log("passage: ");
-    // console.log(verseStart);
-    // console.log("-" );
-    // console.log(verseEnd);
-    
-    // console.log(length);
+}
 }
 
-function newRand(n){
-    return Math.floor(Math.random() * n) + 1;
-}
-
-function length(obj) {
-    return Object.keys(obj).length;
-}
-
-function verseBtnPress(){
-    choseVerse();
-    document.getElementById("verseCard").style.display = "block";
-}
-
-function copy(s){
-    document.getElementById(s).execCommand("copy");
-}
-
-function copyClick(){
-    copy("verses");
-}
-function testVerse(){
-    for(var i = 0; i < 1000; i ++){
-        choseVerse();
-    }
-}
+//test
 
