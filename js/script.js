@@ -13,7 +13,7 @@ var first = true;
 
 notif();
 function notif(){
-    M.toast({html: 'ESV is now the default version. I am working on letting you chose the version'},null);
+    M.toast({html: 'ESV is now the default version. I am working on giving you the option to chose KJV'},null);
 }
 
 function notif2(){
