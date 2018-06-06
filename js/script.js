@@ -8,6 +8,8 @@ var version = 1;
 var test;
 var first = true;
 
+var moreBook, moreChapter, book;
+
 //0 = KJV; 1 = ESV; 
 
 initBib();
@@ -23,7 +25,7 @@ function initBib(){
 }
 notif();
 function notif(){
-    M.toast({html: 'ESV is now the default version. I am working on giving you the option to chose KJV'},null);
+    M.toast({html: 'Read More now works but you must stay in the same book'},null);
 }
 
 /*
@@ -72,9 +74,9 @@ function length(obj) {
 To be run on verse button press.
 */
 function verseBtnPress(){
-    if(first == true){
-        this.first = false;
-    }
+    var acts = '<a href="#!" class="white-text btn-flat disabled" onclick="copyClick()">Copy</a><a href="#!" class="white-text btn-flat" onClick="readMoreBtn()">Read More</a>'
+    document.getElementById("cas"). innerHTML = acts;
+
     
     switch(version){
 
@@ -129,7 +131,8 @@ function kjv(){
     verseStart = newRand(verss - length);
     verseEnd = verseStart + length;
 
-    
+    moreBook = bookName;
+    moreChapter = chapter;
      
     var tmp = chapter + 1;
     var tmpv = verseStart + 1;
@@ -184,7 +187,9 @@ function esv(){
     verseStart = newRand(verss - length);
     verseEnd = verseStart + length;
 
-    
+    moreBook = bookName;
+    moreBookNum = book;
+    moreChapter = chapter;
      
     var tmp = chapter ;
     var tmpv = verseStart ;
@@ -204,11 +209,64 @@ function esv(){
         verse += '<p class="verse">' + bible[bookName][chapter][verseStart] + '</p>'
     }
             document.getElementById("ref").innerHTML = ref;
-            document.getElementById("verses").innerHTML = verse;
+            writeTo(verse);
             document.getElementById("verseCard").style.display = "block";
         
 
 }
 
+function writeTo(t){
+    document.getElementById("verses").innerHTML = t;
+}
+
 //test
 
+function readMoreBtn(){
+    var a = Object.keys(bible[moreBook][moreChapter]).length;
+    var b = '';
+    ref = moreBook + " " + moreChapter;
+    for(var i = 1; i < a; i++){
+        b += '<sup>' + i + '</sup>';
+        b += '<p class="verse">' + bible[moreBook][moreChapter][i] + '</p>'
+    }
+    document.getElementById("ref").innerHTML = ref;
+    writeTo(b);
+    var acts = '<a href="#!" class="white-text btn-flat" id="lc" onClick="lcClick()">Last Chapter</a><a href="#!" class="white-text btn-flat" id="nc" onclick="ncClick()">Next Chapter</a> '
+    document.getElementById("cas"). innerHTML = acts;
+}
+
+
+function lcClick(){
+    if(moreChapter - 1 > 0){
+        moreChapter--;
+        console.log(moreChapter)
+        readMoreBtn();
+    }
+
+    if(moreChapter == 1){
+        $('#lc').addClass('disabled');
+    }else{
+        if($('#lc').hasClass('disabled')){
+            $('#lc').removeClass('disabled');
+        }
+    }
+        
+    
+    
+}
+
+function ncClick(){
+    if( moreChapter + 1 <= Object.keys(bible[moreBook]).length){
+        moreChapter++;
+        readMoreBtn();
+    }
+
+    if(moreChapter + 1 > Object.keys(bible[moreBook]).length){
+        $('#nc').addClass('disabled');
+    }else{
+        if($('#nc').hasClass('disabled')){
+            $('#nc').removeClass('disabled');
+        }
+    }
+    
+}
