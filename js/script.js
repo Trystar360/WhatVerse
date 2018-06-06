@@ -9,6 +9,7 @@ var test;
 var first = true;
 
 var moreBook, moreChapter, book;
+var globalRef;
 
 //0 = KJV; 1 = ESV; 
 
@@ -74,7 +75,7 @@ function length(obj) {
 To be run on verse button press.
 */
 function verseBtnPress(){
-    var acts = '<a href="#!" class="white-text btn-flat disabled" onclick="copyClick()">Copy</a><a href="#!" class="white-text btn-flat" onClick="readMoreBtn()">Read More</a>'
+    var acts = '<a href="#!" class="white-text btn-flat" onclick="copyClick()">Copy</a><a href="#!" class="white-text btn-flat" onClick="readMoreBtn()">Read More</a>'
     document.getElementById("cas"). innerHTML = acts;
 
     
@@ -141,6 +142,9 @@ function kjv(){
 
     if(length > 1){
         ref = bible[book].name + " " + tmp + ":" + tmpv +"-" + verseEnd;
+
+        globalRef = ref;
+
         for(i = verseStart; i < verseEnd; i ++){
             var tmpp = i + 1;
             verse += '<sup>' + tmpp + '</sup>';
@@ -198,10 +202,12 @@ function esv(){
 
     if(length > 1){
         ref = bookName + " " + tmp + ":" + tmpv +"-" + verseEnd;
+
+        globalRef = ref;
         for(i = verseStart; i < verseEnd; i ++){
             var tmpp = i;
-            verse += '<sup>' + tmpp + '</sup>';
-            verse += '<p class="verse">' + bible[bookName][chapter][i] + '</p>'
+            verse += '<sup> ' + tmpp + '</sup>';
+            verse += '<p class="verse"> ' + bible[bookName][chapter][i] + '</p>'
         } 
     }else{
         ref = bookName + " " + tmp + ":" + tmpv;
@@ -269,4 +275,16 @@ function ncClick(){
         }
     }
     
+}
+
+function copyClick(){
+    copyToClipboard('#verses');
+}
+
+function copyToClipboard(element) {
+    var $temp = $("<textarea>");
+    $("body").append($temp);
+    $temp.val($(element).text() + "\r\t - " + globalRef).select();
+    document.execCommand("copy");
+    $temp.remove();
 }
