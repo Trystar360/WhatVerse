@@ -201,19 +201,20 @@ function esv(){
     console.log(bible[bookName][chapter][verseStart]);
 
     if(length > 1){
-        ref = bookName + " " + tmp + ":" + tmpv +"-" + verseEnd;
+        
 
-        globalRef = ref;
         for(i = verseStart; i < verseEnd; i ++){
+            ref = bookName + " " + tmp + ":" + tmpv +"-" + verseEnd;
             var tmpp = i;
             verse += '<sup> ' + tmpp + '</sup>';
             verse += '<p class="verse"> ' + bible[bookName][chapter][i] + '</p>'
         } 
     }else{
         ref = bookName + " " + tmp + ":" + tmpv;
-        verse += '<sup>' + tmp + '</sup>';
-        verse += '<p class="verse">' + bible[bookName][chapter][verseStart] + '</p>'
+        verse += '<sup> ' + tmp + '</sup>';
+        verse += '<p class="verse"> ' + bible[bookName][chapter][verseStart] + '</p>'
     }
+            globalRef = ref;
             document.getElementById("ref").innerHTML = ref;
             writeTo(verse);
             document.getElementById("verseCard").style.display = "block";
