@@ -12,9 +12,16 @@ var moreBook, moreChapter, book;
 var globalRef;
 
 //0 = KJV; 1 = ESV; 
-
+var test = {
+    "verses":[
+        {"number" : 1, "name": "test1"},
+        {"number" : 2, "name": "test2"}
+    ]
+}
 initBib();
 function initBib(){
+    localStorage.setItem("lastname", JSON.stringify(test));
+
     switch(version){
         case 0: 
         choseVerse("../bible.json");
