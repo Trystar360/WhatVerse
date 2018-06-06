@@ -285,6 +285,7 @@ function ncClick(){
 function copyClick(){
     copyToClipboard('#verses');
 }
+var instance = M.TapTarget.getInstance($("#saveVersesBtn"));
 
 function copyToClipboard(element) {
     var $temp = $("<textarea>");
@@ -294,8 +295,9 @@ function copyToClipboard(element) {
     $temp.remove();
 }
 function testSave(){
-   
+    
     if(saved == null){
+        $('.tap-target').tapTarget('open');
         saved = {
             "verses":[
                 {"book": 0, "chapter": 1, "verseStart": 2, "verseLength": 3}
