@@ -64,3 +64,10 @@ footer.page-footer {
 #verseCard{
   display: none;
 }
+
+#savedVersesBtn{
+  font-size: 4rem;
+  left: 90%;
+  size: 4rem;
+  position: absolute;
+}

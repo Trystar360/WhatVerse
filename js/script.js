@@ -7,21 +7,16 @@ var global = this;
 var version = 1;
 var test;
 var first = true;
-
+var saved;
 var moreBook, moreChapter, book;
 var globalRef;
+var globalVerseStart, globalVerseEnd;
 
 //0 = KJV; 1 = ESV; 
-var test = {
-    "verses":[
-        {"number" : 1, "name": "test1"},
-        {"number" : 2, "name": "test2"}
-    ]
-}
+
 initBib();
 function initBib(){
-    localStorage.setItem("lastname", JSON.stringify(test));
-
+saved = JSON.parse(localStorage.getItem("verses"));
     switch(version){
         case 0: 
         choseVerse("../bible.json");
@@ -82,7 +77,7 @@ function length(obj) {
 To be run on verse button press.
 */
 function verseBtnPress(){
-    var acts = '<a href="#!" class="white-text btn-flat" onclick="copyClick()">Copy</a><a href="#!" class="white-text btn-flat" onClick="readMoreBtn()">Read More</a>'
+    var acts = '<a href="#!" class="white-text btn-flat" onclick="copyClick()">Copy</a><a href="#!" class="white-text btn-flat" onClick="readMoreBtn()">Read More</a><a href="#!" class="white-text btn-flat" onClick="addToSaved();" id="saveBtn">Save</a>'
     document.getElementById("cas"). innerHTML = acts;
 
     
@@ -114,60 +109,60 @@ function testVerse(){
 /*
 Randomly choses verse from KJV json
 */
-function kjv(){
-    var ref;
-    var length, maxLength; 
-    var book, books;
-    var chapter,chapters_;
-    var verseStart;
-    var verseEnd, verss;
-    verse = '';
-    var bible = this.bible;
+// function kjv(){
+//     var ref;
+//     var length, maxLength; 
+//     var book, books;
+//     var chapter,chapters_;
+//     var verseStart;
+//     var verseEnd, verss;
+//     verse = '';
+//     var bible = this.bible;
 
     
-    maxLength = 5;
-    length = newRand(maxLength);
-    books = bible.length;
-    book = newRand(books) - 1;
-    console.log(bible);
-    console.log(book);
-    console.log(bible[book]);
-    console.log(bible[book].chapters)
-    chapters_ = bible[book].chapters.length;//yeet
-    chapter = newRand(chapters_) - 1;
-    verss = bible[book].chapters[chapter].length;
-    verseStart = newRand(verss - length);
-    verseEnd = verseStart + length;
+//     maxLength = 5;
+//     length = newRand(maxLength);
+//     books = bible.length;
+//     book = newRand(books) - 1;
+//     console.log(bible);
+//     console.log(book);
+//     console.log(bible[book]);
+//     console.log(bible[book].chapters)
+//     chapters_ = bible[book].chapters.length;//yeet
+//     chapter = newRand(chapters_) - 1;
+//     verss = bible[book].chapters[chapter].length;
+//     verseStart = newRand(verss - length);
+//     verseEnd = verseStart + length;
 
-    moreBook = bookName;
-    moreChapter = chapter;
+//     moreBook = bookName;
+//     moreChapter = chapter;
      
-    var tmp = chapter + 1;
-    var tmpv = verseStart + 1;
+//     var tmp = chapter + 1;
+//     var tmpv = verseStart + 1;
 
-    console.log(bible[book].chapters[chapter][verseStart]);
+//     console.log(bible[book].chapters[chapter][verseStart]);
 
-    if(length > 1){
-        ref = bible[book].name + " " + tmp + ":" + tmpv +"-" + verseEnd;
+//     if(length > 1){
+//         ref = bible[book].name + " " + tmp + ":" + tmpv +"-" + verseEnd;
 
-        globalRef = ref;
+//         globalRef = ref;
 
-        for(i = verseStart; i < verseEnd; i ++){
-            var tmpp = i + 1;
-            verse += '<sup>' + tmpp + '</sup>';
-            verse += '<p class="verse">' + bible[book].chapters[chapter][i] + '</p>'
-        } 
-    }else{
-        ref = bible[book].name + " " + tmp + ":" + tmpv;
-        verse += '<sup>' + tmpp + '</sup>';
-        verse += '<p class="verse">' + bible[book].chapters[chapter][verseStart] + '</p>'
-    }
-            document.getElementById("ref").innerHTML = ref;
-            document.getElementById("verses").innerHTML = verse;
-            document.getElementById("verseCard").style.display = "block";
+//         for(i = verseStart; i < verseEnd; i ++){
+//             var tmpp = i + 1;
+//             verse += '<sup>' + tmpp + '</sup>';
+//             verse += '<p class="verse">' + bible[book].chapters[chapter][i] + '</p>'
+//         } 
+//     }else{
+//         ref = bible[book].name + " " + tmp + ":" + tmpv;
+//         verse += '<sup>' + tmpp + '</sup>';
+//         verse += '<p class="verse">' + bible[book].chapters[chapter][verseStart] + '</p>'
+//     }
+//             document.getElementById("ref").innerHTML = ref;
+//             document.getElementById("verses").innerHTML = verse;
+//             document.getElementById("verseCard").style.display = "block";
         
 
-}
+// }
 
 function cl(logged){
     console.log(logged);
@@ -201,6 +196,8 @@ function esv(){
     moreBook = bookName;
     moreBookNum = book;
     moreChapter = chapter;
+    globalVerseStart = verseStart;
+    globalVerseEnd = verseEnd;
      
     var tmp = chapter ;
     var tmpv = verseStart ;
@@ -295,4 +292,65 @@ function copyToClipboard(element) {
     $temp.val($(element).text() + "\r\t - " + globalRef).select();
     document.execCommand("copy");
     $temp.remove();
+}
+function testSave(){
+   
+    if(saved == null){
+        saved = {
+            "verses":[
+                {"book": 0, "chapter": 1, "verseStart": 2, "verseLength": 3}
+            ]
+        }
+        localStorage.setItem("verses", JSON.stringify(saved));
+    }
+}
+var lovs;
+function addVerse(b, c, vs, vl){
+    lovs = saved.verses;
+    var a = {"book": b, "chapter": c, "verseStart": vs, "verseEnd": vl};
+    lovs = lovs.concat(a);
+    saved.verses = lovs;
+    localStorage.setItem("verses", JSON.stringify(saved));
+    saved = JSON.parse(localStorage.getItem("verses"));
+}
+
+function addToSaved(){
+    testSave();
+    addVerse(moreBook, moreChapter, globalVerseStart, globalVerseEnd);
+    console.log(saved);
+    $('#saveBtn').addClass('disabled');
+
+}
+
+function savedBtnClk(){
+    $('#vss').empty();
+    for(var j = 1; j < saved.verses.length; j++ ){
+        var content = '';
+        var vers = saved.verses[j];
+        var length = vers.verseEnd - (vers.verseStart -1)
+        if(length > 1){
+        
+
+            for(i = vers.verseStart; i < vers.verseEnd; i ++){
+                ref = vers.book + " " + vers.chapter + ":" + vers.verseStart +"-" + vers.verseEnd;
+                var tmpp = i;
+                content += '<sup> ' + tmpp + '</sup>';
+                content += '<p class="verse"> ' + bible[vers.book][vers.chapter][i] + '</p>'
+            } 
+        }else{
+            ref = vers.bookName + " " + vers.chapter + ":" + vers.verseStart;
+            content += '<sup> ' + vers.verseStart + '</sup>';
+            content += '<p class="verse"> ' + bible[vers.book][vers.chapter][vers.verseStart] + '</p>'
+        }
+        //<a href="#!" class="collection-item">Alvin</a>
+        $('#vss').append('<a href="#!" class="collection-item black-text"><h6>' + ref.bold() + '</h6>'+ content +'</a>')
+    }
+}
+
+function clearSaved(){
+    localStorage.setItem("verses", null);
+    saved = null;
+    if($('#saveBtn').hasClass('disabled')){
+        $('#saveBtn').removeClass('disabled');
+    }
 }

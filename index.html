@@ -13,7 +13,8 @@
 <body>
   <nav class="white" role="navigation">
     <div class="nav-wrapper container">
-      <a id="logo-container" href="#" class="brand-logo">WhatVerse?</a>
+      <a id="logo-container btn" href="#" class="brand-logo">WhatVerse?</a>
+      <i class="material-icons grey-text text-darken-2 waves-effect waves-white modal-trigger" onclick="savedBtnClk()" id="savedVersesBtn" href="#savedModal" >bookmark</i>
     </div>
   </nav>
 
@@ -22,6 +23,7 @@
       <div class="container">
         <br><br>
         <h1 class="header center teal-text text-lighten-2">WhatVerse?</h1>
+        
         <div class="row center">
           <h5 class="header col s12 light">Click The button to get a verse!</h5>
         </div>
@@ -60,7 +62,8 @@
               </div>
               <div class="card-action" id="cas">
                 <a href="#!" class="btn-flat disabled" onclick="copyClick()">Copy</a>
-                <a href="#!" class="white-text" onClick="readMoreBtn()">Read More</a>
+                <a href="#!" class="white-text btn-flat" onClick="readMoreBtn()">Read More</a>
+                <a href="#!" class="white-text btn-flat" onClick="addToSaved();" id="saveBtn">Save</a>
                 
               </div>
             </div>
@@ -90,9 +93,33 @@
       Made by Tristan Frederick
       </div>
     </div>
-    <div id="testDiv">This is a test div</div>
   </footer>
 
+   <!-- Modal Structure -->
+   <div id="savedModal" class="modal bottom-sheet">
+    <div class="modal-content">
+      <h4>Your Saved Verses</h4>
+      <!--<p>Click to copy</p>-->
+      <div class="collection" id="vss">
+      </div>
+    </div>
+    <div class="modal-footer">
+        <a class="waves-effect waves-dark btn-flat modal-trigger modal-close left" href="#clearM" >Clear</a>
+        <a class="waves-effect waves-dark btn-flat modal-close" href="#!" >Close</a>
+    </div>
+  </div>
+
+    <!-- Modal Structure -->
+    <div id="clearM" class="modal">
+        <div class="modal-content">
+          <h4>Are you sure you want to clear?</h4>
+          <p>This will remove all your saved verses. THIS CAN NOT BE UNDONE!</p>
+        </div>
+        <div class="modal-footer">
+          <a href="#!" class="modal-close waves-effect waves-dark btn-flat" onclick="clearSaved()">I know, Clear them</a>
+          <a href="#!" class="modal-close waves-effect waves-dark btn-flat">Oops! no thanks</a>
+        </div>
+      </div>
 
   <!--  Scripts-->
   <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
