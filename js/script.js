@@ -10,15 +10,20 @@ var first = true;
 
 //0 = KJV; 1 = ESV; 
 
-
+initBib();
+function initBib(){
+    switch(version){
+        case 0: 
+        choseVerse("../bible.json");
+        break;
+        
+        case 1: 
+        choseVerse("https://raw.githubusercontent.com/honza/bibles/master/ESV/ESV.json");
+    }
+}
 notif();
 function notif(){
     M.toast({html: 'ESV is now the default version. I am working on giving you the option to chose KJV'},null);
-}
-
-function notif2(){
-    M.toast({html: 'For the time being you will have to press the button once more, working on a fix'});
-    M.toast({html: 'Sorry for the inconvenience.'});
 }
 
 /*
@@ -68,7 +73,6 @@ To be run on verse button press.
 */
 function verseBtnPress(){
     if(first == true){
-        notif2();
         this.first = false;
     }
     
@@ -141,7 +145,7 @@ function kjv(){
         } 
     }else{
         ref = bible[book].name + " " + tmp + ":" + tmpv;
-        verse += '<sup>' + tmp + '</sup>';
+        verse += '<sup>' + tmpp + '</sup>';
         verse += '<p class="verse">' + bible[book].chapters[chapter][verseStart] + '</p>'
     }
             document.getElementById("ref").innerHTML = ref;
