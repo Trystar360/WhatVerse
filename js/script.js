@@ -190,7 +190,7 @@ function esv(){
     if(length > 1){
         ref = bookName + " " + tmp + ":" + tmpv +"-" + verseEnd;
         for(i = verseStart; i < verseEnd; i ++){
-            var tmpp = i + 1;
+            var tmpp = i;
             verse += '<sup>' + tmpp + '</sup>';
             verse += '<p class="verse">' + bible[bookName][chapter][i] + '</p>'
         } 
